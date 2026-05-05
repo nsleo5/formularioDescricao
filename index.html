@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulário de Descrição</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Formulário de Veículo</title>
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -19,8 +19,8 @@
     --text-label: #a09d94;
     --accent: #d4f04a;
     --accent-dark: #a8c034;
-    --mono: 'DM Mono', monospace;
-    --sans: 'Syne', sans-serif;
+    --mono: 'Courier New', 'Consolas', monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   body {
@@ -219,40 +219,40 @@
 <div class="wrap">
   <header>
     <div class="tag">// cadastro</div>
-    <h1>Formulário<br>de Descrição</h1>
+    <h1>Formulário<br>de Veículo</h1>
   </header>
 
   <div class="form-grid">
     <div class="field full">
-      <label for="f-nome">Nome comercial do produto</label>
-      <input id="f-nome" type="text" placeholder="Nome do produto">
+      <label for="f-nome">Nome</label>
+      <input id="f-nome" type="text" placeholder="Nome do veículo ou proprietário">
     </div>
     <div class="field">
-      <label for="f-marca">Marca ou  Fabricante</label>
-      <input id="f-marca" type="text" placeholder="Ex: Empresa LTDA">
+      <label for="f-marca">Marca</label>
+      <input id="f-marca" type="text" placeholder="Ex: Ford">
     </div>
     <div class="field">
-      <label for="f-ativo">Princípio ativo ou substância, quando aplicável</label>
-      <input id="f-ativo" type="text" placeholder="Ex: diclofenaco sódico">
+      <label for="f-modelo">Modelo</label>
+      <input id="f-modelo" type="text" placeholder="Ex: Ranger">
     </div>
     <div class="field">
-      <label for="f-concentracao">Concentração ou especificação técnica</label>
-      <input id="f-concentracao" type="text" placeholder="Ex: 300 mg ou estéril ou aço inox com 30 cm de diâmetro">
+      <label for="f-motor">Motor</label>
+      <input id="f-motor" type="text" placeholder="Ex: 2.0 Turbo">
     </div>
     <div class="field">
-      <label for="f-quantidade">Quantidade e unidade</label>
-      <input id="f-quantidade" type="text" placeholder="5 caixas ou 90 comprimidos ou 10 unidades">
+      <label for="f-quantidade">Quantidade</label>
+      <input id="f-quantidade" type="text" placeholder="Ex: 1">
     </div>
     <div class="field full">
-      <label for="f-forma">Forma de apresentação</label>
-      <input id="f-forma" type="text" placeholder="solução ou creme">
+      <label for="f-chassi">Chassi</label>
+      <input id="f-chassi" type="text" placeholder="Número do chassi">
     </div>
     <div class="field full">
-      <label for="f-data">Prazo de validade</label>
+      <label for="f-data">Data de fabricação</label>
       <input id="f-data" type="date">
     </div>
     <div class="field full">
-      <label for="f-obs">Informações adicionais sobre a ocorrência: Indicar se foi apresentada prescrição, relatório médico ou outro documento relevante para a análise; Indicar se o produto estava com a embalagem conservada, se havia indícios de fraude ou adulteração, ou demais características relevantes</label>
+      <label for="f-obs">Observações</label>
       <textarea id="f-obs" placeholder="Informações adicionais..."></textarea>
     </div>
   </div>
@@ -275,10 +275,10 @@
   var campos = [
     { id: 'f-nome' },
     { id: 'f-marca' },
-    { id: 'f-ativo' },
-    { id: 'f-concentracao' },
+    { id: 'f-modelo' },
+    { id: 'f-motor' },
     { id: 'f-quantidade' },
-    { id: 'f-forma' },
+    { id: 'f-chassi' },
     { id: 'f-data' },
     { id: 'f-obs' }
   ];
