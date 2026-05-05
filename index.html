@@ -219,7 +219,7 @@
 <div class="wrap">
   <header>
     <div class="tag">// cadastro</div>
-    <h1>Formulário<br>de Veículo</h1>
+    <h1>Detalhamento<br>de Ocorrências</h1>
   </header>
 
   <div class="form-grid">
@@ -293,7 +293,9 @@
       return document.getElementById(c.id).value.trim();
     });
 
-    var texto = valores.join('|').toUpperCase();
+    valores = valores.map(function(v) { return v.toUpperCase(); });
+
+    var texto = valores.join('|');
 
     // Render com pipes coloridos
     var html = valores.map(function(v) {
