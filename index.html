@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulário de Veículo</title>
+<title>Formulário de Descrição</title>
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -224,35 +224,35 @@
 
   <div class="form-grid">
     <div class="field full">
-      <label for="f-nome">Nome</label>
-      <input id="f-nome" type="text" placeholder="Nome do veículo ou proprietário">
+      <label for="f-nome">Nome comercial do produto</label>
+      <input id="f-nome" type="text" placeholder="Nome do produto">
     </div>
     <div class="field">
-      <label for="f-marca">Marca</label>
-      <input id="f-marca" type="text" placeholder="Ex: Ford">
+      <label for="f-marca">Marca ou fabricante</label>
+      <input id="f-marca" type="text" placeholder="Ex: Empresa LTDA">
     </div>
     <div class="field">
-      <label for="f-modelo">Modelo</label>
-      <input id="f-modelo" type="text" placeholder="Ex: Ranger">
+      <label for="f-ativo">Princípio ativo ou substância, quando aplicável</label>
+      <input id="f-ativo" type="text" placeholder="Ex: Diclofenaco sódico">
     </div>
     <div class="field">
-      <label for="f-motor">Motor</label>
-      <input id="f-motor" type="text" placeholder="Ex: 2.0 Turbo">
+      <label for="f-concentracao">Concentração ou especificação técnica</label>
+      <input id="f-concentracao" type="text" placeholder="Ex: 300mg ou aço inox estéril">
     </div>
     <div class="field">
-      <label for="f-quantidade">Quantidade</label>
-      <input id="f-quantidade" type="text" placeholder="Ex: 1">
+      <label for="f-quantidade">Quantidade e Unidade</label>
+      <input id="f-quantidade" type="text" placeholder="Ex: 5 caixas ou 10 unidades">
     </div>
     <div class="field full">
-      <label for="f-chassi">Chassi</label>
-      <input id="f-chassi" type="text" placeholder="Número do chassi">
+      <label for="f-forma">Forma de apresentação</label>
+      <input id="f-forma" type="text" placeholder="solução ou creme">
     </div>
     <div class="field full">
-      <label for="f-data">Data de fabricação</label>
+      <label for="f-data">Prazo de validade</label>
       <input id="f-data" type="date">
     </div>
     <div class="field full">
-      <label for="f-obs">Observações</label>
+      <label for="f-obs">Informações adicionais sobre a ocorrência: Indicar se foi apresentada prescrição, relatório médico ou outro documento relevante para a análise; Indicar se o produto estava com a embalagem conservada, se havia indícios de fraude ou adulteração, ou demais características relevantes</label>
       <textarea id="f-obs" placeholder="Informações adicionais..."></textarea>
     </div>
   </div>
@@ -275,10 +275,10 @@
   var campos = [
     { id: 'f-nome' },
     { id: 'f-marca' },
-    { id: 'f-modelo' },
-    { id: 'f-motor' },
+    { id: 'f-ativo' },
+    { id: 'f-concentracao' },
     { id: 'f-quantidade' },
-    { id: 'f-chassi' },
+    { id: 'f-forma' },
     { id: 'f-data' },
     { id: 'f-obs' }
   ];
