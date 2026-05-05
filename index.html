@@ -245,7 +245,7 @@
     </div>
     <div class="field full">
       <label for="f-forma">Forma de apresentação</label>
-      <input id="f-forma" type="text" placeholder="solução ou creme">
+      <input id="f-forma" type="text" placeholder="Ex: solução ou creme">
     </div>
     <div class="field full">
       <label for="f-lote">Número(s) de lote, serial ou partnumber</label>
@@ -293,7 +293,7 @@
       return document.getElementById(c.id).value.trim();
     });
 
-    var texto = valores.join('|');
+    var texto = valores.join('|').toUpperCase();
 
     // Render com pipes coloridos
     var html = valores.map(function(v) {
