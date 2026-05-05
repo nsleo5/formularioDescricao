@@ -303,6 +303,7 @@
     }).join('<span class="pipe">|</span>');
 
     document.getElementById('result-text').innerHTML = html;
+    document.getElementById('result-text').style.textTransform = 'uppercase';
     document.getElementById('result-area').style.display = 'block';
     document.getElementById('btn-copy').textContent = 'Copiar';
     document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
