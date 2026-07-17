@@ -1,3 +1,69 @@
+
+Pesquisar conversas
+Imagens
+Novo
+Vídeos
+Biblioteca
+Novo notebook
+Monte uma apresentação didática com base no conteúdo dessa conversa com o gemini: https://gemini.google.com/share/d8b568f756df
+Formulário HTML com Itens Dinâmicos
+Navegação para Ultrabox EPTG
+Recintos Aduaneiros por Região Fiscal
+Juntando Tabelas Pandas com `pd.concat()`
+Automatizando ações no Chrome
+Corrigindo Erro ChromaDB com PDF
+Escolha e Treinamento de Modelos Gemma
+Plano de Escuta da Obra de Mozart
+Análise Técnica Essencial para Ações
+Análise Fundamentalista 80/20 Essencial
+Análise de Variação de Ações B3
+Gemini e Agentes de IA
+Aprenda Teoria dos Jogos: Guia Completo
+Retratos com Variações de Corte Careca
+Erro openpyxl: Caracteres Inválidos no Excel
+Criar App Python para Extrair PDF
+Separar Colunas CSV por Variância
+Tempo Que Resta: Reflexão Existencial
+Seleção de Ocorrências com Múltiplas Categorias
+Extrair Quantidade e Unidade com LLM
+Citar SentenceTransformer em Artigo Científico
+Autocuidado e Busca por Ajuda Psicológica
+Criar Executável Python com PyInstaller
+Entendendo Embeddings e Classificação de Texto
+Conversa com o Gemini
+Tenho o código html em anexo, altere-o de modo que tenha botões de item. Por exemplo, o botão "item 1" que abre os campos existentes no html e um botão "novo item" que ao ser clicado cria "item 2" e reposiciona "novo item" para depois de "item 2". O botão "item 2" ao ser clicado também abre os campos.
+
+O campo observações adicionais não é múltiplo, ele fica sempre no final da página. Ao gerar texto, os valores dos campos são separados por "|". Os campos dos itens, quando houver mais de 1, são separados por ";". E as informações adicionais são separados do resto do texto por 2 quebras de linhas.
+
+Seu arquivo HTML atualizado está pronto:
+Ícone do app HTML
+formulario_multiplo
+ HTML 
+Aberto
+
+O que foi alterado:
+
+Sistema de Abas (Tabs): Adicionei uma barra de navegação no topo com os botões dos itens e o botão "+ Novo Item".
+
+Gerenciamento de Estado (JavaScript): Ao invés de ler apenas os campos estáticos, o formulário agora salva e carrega os dados de um array de items à medida que você transita entre as abas. Clicar em "+ Novo Item" adiciona um novo item e seleciona ele automaticamente.
+
+Isolamento do Campo de Observações: O campo de "Informações adicionais" foi separado da grade principal de itens e fixado no final da página, atuando como um campo global único que não é limpo ao alternar entre os itens.
+
+Formatação do Texto Gerado:
+
+Valores dentro do mesmo item são separados por |.
+
+Múltiplos itens são concatenados sendo separados por ;.
+
+Se o campo de observações adicionais for preenchido, ele será adicionado ao final do texto separado por duas quebras de linha (\n\n), mantendo assim a estrutura pedida.
+
+Você pode baixar e abrir o arquivo .html diretamente no seu navegador para testar o funcionamento.
+
+
+Este arquivo funciona como página html no github
+
+O Gemini é uma IA e pode cometer erros.
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -58,6 +124,61 @@
     letter-spacing: -0.02em;
     line-height: 1.1;
     color: var(--text);
+  }
+
+  /* Aba/Tabs de Itens */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+
+  .tab-btn {
+    padding: 8px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+
+  .tab-btn:hover {
+    background: var(--border);
+  }
+
+  .tab-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+  }
+
+  .tab-btn.add-btn {
+    background: transparent;
+    border: 1px dashed var(--border-focus);
+    color: var(--text);
+  }
+
+  .tab-btn.add-btn:hover {
+    background: var(--surface2);
+    border-color: var(--accent);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-label);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 24px 0 8px;
+    display: block;
   }
 
   .form-grid {
@@ -135,7 +256,7 @@
 
   .btn-extract {
     width: 100%;
-    margin-top: 16px;
+    margin-top: 24px;
     padding: 14px 20px;
     background: #1a1a18;
     color: #ffffff;
@@ -207,6 +328,7 @@
   }
 
   .pipe { color: var(--accent); opacity: 0.6; }
+  .semicolon { color: var(--accent); font-weight: bold; margin: 0 4px; }
 
   @media (max-width: 480px) {
     .form-grid { grid-template-columns: 1fr; }
@@ -221,7 +343,11 @@
     <h1>Detalhamento de Ocorrências</h1>
   </header>
 
-  <div class="form-grid">
+  <!-- Área de Abas -->
+  <div class="tabs" id="tabs-container"></div>
+
+  <!-- Campos do Item (Dinâmico) -->
+  <div class="form-grid" id="item-fields">
     <div class="field full">
       <label for="f-nome">Nome comercial do produto</label>
       <input id="f-nome" type="text" placeholder="Nome do produto">
@@ -258,6 +384,11 @@
       <label for="f-data">Prazo de validade</label>
       <input id="f-data" type="text" placeholder="Ex: 30/06/2026">
     </div>
+  </div>
+
+  <!-- Campo Global -->
+  <span class="section-label">Informações Adicionais (Globais)</span>
+  <div class="form-grid">
     <div class="field full">
       <label for="f-obs">Informações adicionais sobre a ocorrência: Indicar se foi apresentada prescrição, relatório médico ou outro documento relevante para a análise; Indicar se o produto estava com a embalagem conservada, se havia indícios de fraude ou adulteração, ou demais características relevantes</label>
       <textarea id="f-obs" placeholder="Informações adicionais..."></textarea>
@@ -279,41 +410,120 @@
 </div>
 
 <script>
-  var campos = [
-    { id: 'f-nome' },
-    { id: 'f-marca' },
-    { id: 'f-ativo' },
-    { id: 'f-concentracao' },
-    { id: 'f-quantidade' },
-    { id: 'f-forma' },
-    { id: 'f-lote' },
-    { id: 'f-peso' },
-    { id: 'f-data' },
-    { id: 'f-obs' }
+  // Estado da aplicação
+  var items = [];
+  var currentIndex = 0;
+  
+  // Campos pertencentes a cada item
+  var fields = [
+    'nome', 'marca', 'ativo', 'concentracao', 
+    'quantidade', 'forma', 'lote', 'peso', 'data'
   ];
 
-  function extrair() {
-    var valores = campos.map(function(c) {
-      return document.getElementById(c.id).value.trim();
+  // Inicialização
+  window.onload = function() {
+    items.push(createEmptyItem());
+    renderTabs();
+    loadCurrentItem();
+  };
+
+  function createEmptyItem() {
+    var obj = {};
+    fields.forEach(function(f) { obj[f] = ''; });
+    return obj;
+  }
+
+  function renderTabs() {
+    var container = document.getElementById('tabs-container');
+    container.innerHTML = '';
+
+    // Botões dos Itens
+    items.forEach(function(item, index) {
+      var btn = document.createElement('button');
+      btn.className = 'tab-btn' + (index === currentIndex ? ' active' : '');
+      btn.innerText = 'Item ' + (index + 1);
+      btn.onclick = function() { switchItem(index); };
+      container.appendChild(btn);
     });
 
-    valores = valores.map(function(v) { return v.toUpperCase(); });
+    // Botão + Novo Item
+    var addBtn = document.createElement('button');
+    addBtn.className = 'tab-btn add-btn';
+    addBtn.innerText = '+ Novo Item';
+    addBtn.onclick = addNewItem;
+    container.appendChild(addBtn);
+  }
 
-    var texto = valores.join('|');
+  function saveCurrentItem() {
+    fields.forEach(function(f) {
+      items[currentIndex][f] = document.getElementById('f-' + f).value;
+    });
+  }
 
-    // Render com pipes coloridos
-    var html = valores.map(function(v) {
-      return '<span>' + escHtml(v) + '</span>';
-    }).join('<span class="pipe">|</span>');
+  function loadCurrentItem() {
+    fields.forEach(function(f) {
+      document.getElementById('f-' + f).value = items[currentIndex][f];
+    });
+  }
 
-    document.getElementById('result-text').innerHTML = html;
+  function switchItem(index) {
+    saveCurrentItem();
+    currentIndex = index;
+    loadCurrentItem();
+    renderTabs();
+  }
+
+  function addNewItem() {
+    saveCurrentItem();
+    items.push(createEmptyItem());
+    currentIndex = items.length - 1; // Seleciona o novo item criado
+    loadCurrentItem();
+    renderTabs();
+  }
+
+  function extrair() {
+    // Salva qualquer alteração pendente no item atual
+    saveCurrentItem();
+
+    // Arrays para montar texto e HTML
+    var itemStrings = items.map(function(item) {
+      return fields.map(function(f) { 
+        return item[f].trim().toUpperCase(); 
+      });
+    });
+
+    // Montagem Texto Puro
+    var textoItems = itemStrings.map(function(vals) {
+      return vals.join('|');
+    }).join(';');
+
+    // Montagem HTML (com pipes coloridos)
+    var htmlItems = itemStrings.map(function(vals) {
+      return vals.map(function(v) {
+        return '<span>' + escHtml(v) + '</span>';
+      }).join('<span class="pipe">|</span>');
+    }).join('<span class="semicolon">;</span><br>');
+
+    // Informações Adicionais (Globais)
+    var obs = document.getElementById('f-obs').value.trim().toUpperCase();
+
+    var textoFinal = textoItems;
+    var htmlFinal = htmlItems;
+
+    if (obs) {
+      textoFinal += '\n\n' + obs;
+      htmlFinal += '<br><br><span>' + escHtml(obs).replace(/\n/g, '<br>') + '</span>';
+    }
+
+    // Exibição
+    document.getElementById('result-text').innerHTML = htmlFinal;
     document.getElementById('result-text').style.textTransform = 'uppercase';
     document.getElementById('result-area').style.display = 'block';
     document.getElementById('btn-copy').textContent = 'Copiar';
     document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
     // Guarda texto puro para copiar
-    document.getElementById('result-area').dataset.raw = texto;
+    document.getElementById('result-area').dataset.raw = textoFinal;
   }
 
   function escHtml(str) {
